@@ -1,0 +1,17 @@
+/* Assuming you have a class name for your DataGrid container */
+/* Replace ".datagrid-container" with your actual class name */
+.datagrid-container ::-webkit-scrollbar {
+  height: 0; /* Hide horizontal scrollbar in WebKit browsers (Chrome, Safari, etc.) */
+  width: 0; /* Hide vertical scrollbar in WebKit browsers (if needed) */
+}
+
+/* For Firefox */
+.datagrid-container scrollbar {
+  display: none; /* Hide scrollbar in Firefox */
+}
+
+/* For IE and Edge */
+.datagrid-container {
+  -ms-overflow-style: none; /* Hide scrollbar in IE and Edge */
+}
+/* In a CSS file or within your component */
