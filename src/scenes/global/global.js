@@ -13,6 +13,7 @@ export default function Global() {
       <main className="globalcontent">
         <Topbar setIsSidebar={setIsSidebar} />
         <Outlet />
+        
       </main>
     </div>
   );

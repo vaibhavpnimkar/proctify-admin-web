@@ -166,108 +166,22 @@ const Dashboard = () => {
     // Replace with your data
   ];
 
-  const addStudent = (item) => {
-    // setStudents((prevStudents) => [...prevStudents, item]);
-  };
+ 
 
   //  const remoteVideo = document.querySelector("video.remoteview");
-  const constraints = { audio: false, video: true };
-  //  const view = document.querySelector("#exam");
-  const config = {
-    iceServers: [
-      {
-        urls: "turn:124.64.206.224:8800",
-        username: "webrtc",
-        credential: "turnserver",
-      },
-    ],
-  };
+  
   // let url = "ws://192.168.215.83:6503"
   // let url = "ws://192.168.43.147:6503";
   // let url = "ws://192.168.1.175:6503";
-  let url = "ws://192.168.20.83:6503";
 
-  var last_index = 0;
-  var current_student = null;
-  var socket = new WebSocket(url, "json");
-  var live_students = {};
 
   //webcam and screenshare button handlers
-  function webcbutton(id) {
-    //remove stream if there is already some one live
-    if (current_student && live_students[current_student]) {
-      live_students[current_student].rtc.rc.channel.send(
-        JSON.stringify({
-          type: "removestream",
-        })
-      );
-    }
-    let student_channel = live_students[id].rtc.rc.channel;
-    current_student = id;
-    console.log("webbutton:" + id);
+  
 
-    student_channel.send(
-      JSON.stringify({
-        type: "sharemode",
-        mode: "webcam",
-      })
-    );
-  }
 
-  function kickstudent(id) {
-    console.log("kick student" + id);
-  }
-  function screenbutton(id) {
-    //remove stream if there is already some one live
-    if (current_student && live_students[current_student]) {
-      live_students[current_student].rtc.rc.channel.send(
-        JSON.stringify({
-          type: "removestream",
-        })
-      );
-    }
-    let student_channel = live_students[id].rtc.rc.channel;
-    current_student = id;
-    student_channel.send(
-      JSON.stringify({
-        type: "sharemode",
-        mode: "screen",
-      })
-    );
-  }
-
-  socket.onopen = () => {
-    console.log("connected");
-  };
-  socket.onclose = () => {
-    console.log("disconnected");
-  };
-  socket.onmessage = async (msg) => {
-    var message = JSON.parse(msg.data);
-    //when connecting for the first time
-    //we need to send the username
-    if (message.type === "id") {
-      console.log("socket connected");
-      var newname = {
-        type: "admindetails",
-        name: "admin",
-        id: message.id,
-        admin: "1234", //admin id
-      };
-      console.log(newname);
-      socket.send(JSON.stringify(newname));
-    }
+  
 
     //user list
-    if (message.type === "exam") {
-      console.log("user list");
-      if (message.students.length === 0) {
-        // view.innerHTML = "NO EXAMS ARE LIVE";
-        console.log("no students are live");
-        return;
-      }
-      console.log(message.students);
-    }
 
     //warnings
     //  if (message.type === "warnings") {
@@ -297,117 +211,19 @@ const Dashboard = () => {
     //  }
 
     //new student added
-    if (message.type === "add") {
-      console.log("add student");
-      message.index = ++last_index;
-      live_students[message.sid] = {
-        rtc: new webrtc(message),
-        warnings: {
-          out_of_frame: 0,
-          mobile_detected: 0,
-          not_center: 0,
-          low_light: 0,
-          left: 0,
-          right: 0,
-          up: 0,
-          down: 0,
-        },
-      };
-    }
+    
+   
 
     //student deleted
-    if (message.type === "del") {
-      console.log("delete student");
-      const warning_table = document.getElementById("warning_logs");
-      warning_table.deleteRow(last_index);
-      last_index--;
-      delete live_students[message.sid];
-    }
-    //webrtc offer
-    if (message.type === "offer") {
-      console.log("offer received");
-      let student_connection = live_students[message.sid];
-      student_connection.rtc.handleOffer(message);
-    }
-
+     
     //new ice candidate received
-    if (message.type === "new-ice-candidate") {
-      console.log("new ice candidate:");
-      let student_connection = live_students[message.sid];
-      await student_connection.rtc.handleNewICECandidateMsg(message);
-    }
-  };
-
+    
   //webrtc class declaration
-  class webrtc {
-    constructor(message) {
-      console.log(message);
-      this.exam = message.exam;
-      this.id = message.sid;
-      this.index = message.index;
-      this.rc = new RTCPeerConnection(config);
-      this.rc.ondatachannel = this.handleDataChannel.bind(this);
-      this.rc.ontrack = this.handleTrackEvent.bind(this);
-      this.rc.onicecandidate = this.handleICECandidateEvent.bind(this);
-    }
+ 
 
-    sendToServer(data) {
-      data = JSON.stringify(data);
-      socket.send(data);
-    }
-    handleDataChannel(evt) {
-      this.rc.channel = evt.channel;
-      this.rc.channel.onopen = () => console.log("channel is open...");
-      this.rc.channel.onclose = () => console.log("channel is closed...");
-      this.rc.channel.onmessage = (msg) =>
-        console.log("channel message:" + msg.data);
-    }
-    handleTrackEvent(evt) {
-      console.log("track");
-      // remoteVideo.srcObject = evt.streams[0];
-      // console.log(remoteVideo);
-    }
 
-    handleICECandidateEvent(event) {
-      if (event.candidate) {
-        console.log("*** Outgoing ICE candidate: " + event.candidate.candidate);
-        this.sendToServer({
-          type: "new-ice-candidate",
-          target: this.id,
-          to: "student",
-          exam: this.exam,
-          candidate: event.candidate,
-          from: "admin",
-        });
-      }
-    }
 
-    async handleOffer(msg) {
-      let sdp = msg.sdp;
-      let desc = new RTCSessionDescription(sdp);
-      await this.rc.setRemoteDescription(desc);
-      await this.rc.setLocalDescription(await this.rc.createAnswer());
-      this.sendToServer({
-        name: "admin",
-        target: this.id,
-        exam: this.exam,
-        type: "answer",
-        sdp: this.rc.localDescription,
-      });
-    }
 
-    async handleNewICECandidateMsg(msg) {
-      var candidate = new RTCIceCandidate(msg.candidate);
-      console.log(
-        "*** Adding received ICE candidate: " + JSON.stringify(candidate)
-      );
-      try {
-        await this.rc.addIceCandidate(candidate);
-      } catch (err) {
-        console.log("err:" + err);
-      }
-    }
-  }
 
   return (
     <Box m="20px">
