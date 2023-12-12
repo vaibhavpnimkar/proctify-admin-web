@@ -21,6 +21,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import PreviewOutlinedIcon from '@mui/icons-material/PreviewOutlined';
 import FolderSharedOutlinedIcon from '@mui/icons-material/FolderSharedOutlined';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
+import Chat from "@mui/icons-material/Chat";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   return (
@@ -184,6 +185,13 @@ const Sidebar = ({ isSticky }) => {
               title="Edit Profile"
               to="edit_profile"
               icon={<AccountCircleOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Chat"
+              to="chat"
+              icon={<Chat />}
               selected={selected}
               setSelected={setSelected}
             />

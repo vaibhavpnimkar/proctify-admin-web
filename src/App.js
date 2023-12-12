@@ -17,6 +17,8 @@ import { Toaster } from 'react-hot-toast';
 import StudentDetails from "./scenes/studentdetails/StudentDetails";
 import GenerateQuestion from "./scenes/generateQuestion/GenerateQuestion";
 import { useEffect, useRef, useState } from "react";
+import Chat from "./scenes/chat";  
+
 
 function App() {
   const ws = useRef(null)
@@ -100,7 +102,10 @@ function App() {
           path: "view_questions",
           element: <ViewQuestion />,
         },
-
+        {
+          path: "chat",
+          element: <Chat />,
+        },
         {
           path: "publish_results",
           element: <PublishResults />,
