@@ -30,6 +30,7 @@ import WebcamIcon from "@mui/icons-material/Videocam";
 import ScreenIcon from "@mui/icons-material/ScreenShare";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PhotoCameraFrontIcon from "@mui/icons-material/PhotoCameraFront";
+import JitsiComponent from "../../components/JitsiComponent";
 const AnimatedButton = styled(motion.button)({
   backgroundColor: "#0159ED",
   color: "white",
@@ -226,124 +227,7 @@ const Dashboard = () => {
 
 
   return (
-    <Box m="20px">
-      {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Ongoing Exams" subtitle="Search for a particular exam" />
-      </Box>
-
-      {/* </Box> */}
-
-      {/* GRID & CHARTS */}
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        gap="10px"
-        pt="50px"
-      >
-        {/* <video ref={videoRef} autoPlay playsInline /> */}
-        {showTable && (
-          <Box m="20px">
-            {/* <Header title="Exam" subtitle="Live exam monitoring" /> */}
-            <Box
-              m="-10px 0 0 0"
-              height="75vh"
-              width={"100%"}
-              sx={{
-                "& .MuiDataGrid-root": {
-                  border: "none",
-                  backgroundColor: "#ffffff",
-                },
-                "& .MuiDataGrid-cell": {
-                  borderBottom: "none",
-                  // color: "#fff", // Text color
-                  fontFamily: "monospace",
-                  fontSize: 13,
-                },
-                "& .name-column--cell": {
-                  color: "#1774D4", // Header text color
-                  backgroundColor: "#1774D4", // Header background color
-                },
-                "& .MuiDataGrid-columnHeaderTitle": {
-                  color: "#fff",
-                  fontWeight: "bold",
-                  fontSize: 13, // Header title color
-                },
-                "& .MuiDataGrid-columnHeaders": {
-                  backgroundColor: "#1774D4", // Header background color
-                  borderBottom: "none",
-                },
-                "& .MuiDataGrid-virtualScroller": {
-                  backgroundColor: "#1774D4", // Table background color
-                },
-                "& .MuiDataGrid-footerContainer": {
-                  borderTop: "none",
-                  borderBottomLeftRadius: "4px",
-                  borderBottomRightRadius: "4px",
-                  backgroundColor: "#1774D4", // Footer background color
-                  color: "#ffffff",
-                },
-                "& .MuiCheckbox-root": {
-                  color: "#fff !important", // Checkbox color
-                },
-                "& .MuiDataGrid-row": {
-                  backgroundColor: "#fff",
-                  "&:hover": {
-                    backgroundColor: "#f5f5f5 !important", // Hovered row background color (light grey)
-                  }, // Row background color (white)
-                },
-                "& .MuiDataGrid-footer": {
-                  // Footer background color
-                  color: "#ffffff !important",
-                },
-                // "& .MuiDataGrid-row:hover": {
-                //   backgroundColor: "#f5f5f5", // Hovered row background color (light grey)
-                // },
-              }}
-            >
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                style={{ width: 1000 }}
-                className="datagrid-container"
-              />
-            </Box>
-            <Dialog
-              onClose={handleClose}
-              aria-labelledby="customized-dialog-title"
-              open={open}
-              fullWidth
-              maxWidth="md"
-            >
-              <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                Modal title
-                <IconButton
-                  aria-label="close"
-                  onClick={handleClose}
-                  sx={{
-                    position: "absolute",
-                    right: 8,
-                    top: 8,
-                    color: (theme) => theme.palette.grey[500],
-                  }}
-                >
-                  <CloseIcon />
-                </IconButton>
-              </DialogTitle>
-              <DialogContent dividers>
-                <Typography gutterBottom>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros.
-                </Typography>
-              </DialogContent>
-              <DialogActions>{/* Add any actions you need */}</DialogActions>
-            </Dialog>
-          </Box>
-        )}
-      </Box>
-    </Box>
+   <JitsiComponent/>
   );
 };
 
