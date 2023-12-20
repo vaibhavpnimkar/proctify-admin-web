@@ -22,35 +22,7 @@ function App() {
   const ws = useRef(null)
   const [theme, colorMode] = useMode();
   const [websocket, setWebsocket] = useState(null)
-  useEffect(() => {
-    let url = "ws://192.168.215.83:6503"
 
-    ws.current = new WebSocket(url, "json");
-
-    ws.current.onopen = () => {
-      console.log("connected");
-    }
-    ws.current.onclose = () => {
-      console.log("dis connected");
-    }
-
-    ws.current.onmessage = (msg) => {
-      var message = JSON.parse(msg.data);
-      localStorage.setItem('message', JSON.stringify(message))
-      const event = new StorageEvent("storage", {
-        key: "message",
-      });
-      window.dispatchEvent(event);
-
-      console.log("message", message);
-    }
-    // websocket = ws.current;
-    setWebsocket(ws.current)
-    console.log(websocket)
-    // return () => {
-    //   ws.current.close()
-    // }
-  }, [])
   const router = createBrowserRouter([
     {
       path: "/",
