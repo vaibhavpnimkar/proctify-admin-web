@@ -35,7 +35,18 @@ const AIMonitor = () => {
                                     <TableCell>{row.sid}</TableCell>
                                     <TableCell>{row.name}</TableCell>
                                     <TableCell>{row.message}</TableCell>
-                                    <TableCell><Button>Message</Button></TableCell>
+                                    <TableCell><Button data-id={row.sid} onClick={(e) => {
+                                        fetch('http://localhost:3002/api/v1/chat', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({
+                                                sid: e.currentTarget.dataset.id,
+                                                message: "!WARNING!"
+                                            })
+                                        })
+                                    }}>Message</Button></TableCell>
                                 </TableRow>
                             )
                         })}
