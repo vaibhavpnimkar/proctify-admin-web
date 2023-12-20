@@ -13,6 +13,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
 
 
 
@@ -23,6 +24,9 @@ const Chat = () => {
     const navigate = useNavigate();
 
     const [message, setMessage] = React.useState('');
+    const [students, setStudents] = React.useState([]);
+    const [examId, setExamId] = React.useState('');
+
 
     const columns = [
         {
@@ -67,7 +71,18 @@ const Chat = () => {
             <Button
               variant="contained"
               onClick={() => {
-                console.log("SEND;" + message + ";TO;" + params.row.name + ';;');
+                // console.log("SEND;" + message + ";TO;" + params.row.name + ';;');
+                const token = localStorage.getItem('token')
+                const response = axios.post('http://127.0.0.1:3002/api/v1/chat', {
+                  message: message,
+                  admin_name: "PROCTOR",
+                  sid: params.row.id ?? 69
+                }, {
+                  headers: {
+                    'Authorization': `Bearer ${token}`
+                  }
+                })
+                console.log(response.data)
               }}
             >
               Send Message
@@ -83,12 +98,27 @@ const Chat = () => {
       </div>
       <Header title="Chat" subtitle="Message student in live-exam" />
       <Box m="10px" p="10px">
+        Exam ID: 
+        <Input placeholder="Exam ID" id="exam-id" multiline={false} onChange={(e)=>{
+            setExamId(e.target.value);
+        }} />
+        <Button onClick={(e) => {
+            const token = localStorage.getItem('token')
+            const response = axios.get(`http://127.0.0.1:3002/api/v1/admin/getregisteredstudent/${e.target.value}`, {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            })
+            console.log(response.data)
+            setStudents(response.data)
+        }}>Get Students</Button>
+      </Box>
+      <Box m="10px" p="10px">
         Message: 
-        <Input placeholder="Message" fullWidth={true} id="message" multiline={true} onChange={(e)=>{
+        <Input fullWidth={true} placeholder="Message" id="message" multiline={true} onChange={(e)=>{
             setMessage(e.target.value);
         }} />
       </Box>
-      
       <Box
         m="-10px 0 0 0"
         height="75vh"

@@ -22,6 +22,8 @@ import PreviewOutlinedIcon from '@mui/icons-material/PreviewOutlined';
 import FolderSharedOutlinedIcon from '@mui/icons-material/FolderSharedOutlined';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import Chat from "@mui/icons-material/Chat";
+import AIMonitor from "../AIMonitor";
+import { Person2TwoTone } from "@mui/icons-material";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   return (
@@ -192,6 +194,13 @@ const Sidebar = ({ isSticky }) => {
               title="Chat"
               to="chat"
               icon={<Chat />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="AI Monitor"
+              to="/global/aimon"
+              icon={<Person2TwoTone />}
               selected={selected}
               setSelected={setSelected}
             />

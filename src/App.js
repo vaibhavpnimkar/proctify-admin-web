@@ -18,7 +18,8 @@ import StudentDetails from "./scenes/studentdetails/StudentDetails";
 import GenerateQuestion from "./scenes/generateQuestion/GenerateQuestion";
 import { useEffect, useRef, useState } from "react";
 import Chat from "./scenes/chat";  
-
+import NewDashboard from "./scenes/new_dashboard"
+import AIMonitor from "./scenes/AIMonitor";
 
 function App() {
   const ws = useRef(null)
@@ -57,6 +58,7 @@ function App() {
     {
       path: "/",
       element: <Home />,
+      // element: <NewDashboard />,
     },
     {
       path: "/forgotpassword",
@@ -69,6 +71,10 @@ function App() {
         {
           index: true,
           element: <Dashboard />,
+        },
+        {
+          path: "aimon",
+          element: <AIMonitor/>,
         },
         {
           path: "exam",

@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+
+.screen {
+    background: #00ff00;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    padding: 20px 30px;
+    height: 100%;
+    position: relative;
+}
+
+.main-window {
+    width: 70%;
+    height: 100%;
+
+    background-color: #ff0000;
+
+}

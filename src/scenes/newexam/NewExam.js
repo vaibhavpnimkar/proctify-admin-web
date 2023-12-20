@@ -37,10 +37,10 @@ const NewExam = () => {
     console.log(values)
     const startdate = values.startdate.split("T")[0]
     const last_registration_date = values.last_registeration_date.split("T")[0]
-    // const starttime = values.starttime.split("T")[1].split("+")[0]
-    const starttime = values.starttime.split("T")[0]
-    // const endtime = values.endtime.split("T")[1].split("+")[0]
-    const endtime = values.endtime.split("T")[0]
+    const starttime = values.starttime.split("T")[1].split("+")[0]
+    // const starttime = values.starttime.split("T")[0]
+    const endtime = values.endtime.split("T")[1].split("+")[0]
+    // const endtime = values.endtime.split("T")[0]
     const negative_marks = (Number(values.question_weightage) * Number(values.negative_marks)) / 100
     values['startdate'] = startdate
     values['last_registeration_date'] = last_registration_date
