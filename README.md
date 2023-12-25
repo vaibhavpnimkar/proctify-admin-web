@@ -1,7 +1,33 @@
-# React Admin Dashboard
 
-Build a COMPLETE React Admin Dashboard App | React, Material UI, Data Grid, Light & Dark Mode
+```markdown
+## Forking the Repository
 
-Video: https://www.youtube.com/watch?v=wYpCWwD1oz0
+1. **Fork the Repository:**
+   - Go to the GitHub repository you want to fork.
+   - Click the "Fork" button in the upper right corner.
 
-For all related questions and discussions about this project, check out the discord: https://discord.gg/2FfPeEk2mX
+2. **Clone Your Forked Repository:**
+   ```bash
+   git clone https://github.com/your-username/original-repo.git
+   cd original-repo
+   ```
+
+## Setting Up a React App
+
+
+4. **Navigate to the React App Directory:**
+   ```bash
+   cd path/to/your/react-app
+   ```
+
+5. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
+
+6. **Start the Development Server:**
+   ```bash
+   npm start
+   ```
+
+
