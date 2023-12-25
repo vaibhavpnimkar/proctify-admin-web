@@ -22,7 +22,7 @@
 
 5. **Install Dependencies:**
    ```bash
-   npm install
+   npm install --force
    ```
 
 6. **Start the Development Server:**
